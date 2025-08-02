@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ODYSSEY - Configuración</title>
+    <meta name="description" content="Panel de configuración ODYSSEY - Personaliza tu experiencia">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="settings.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#4dd0e1">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png">
+</head>
+<body class="dashboard-body">
+    <!-- Dashboard Header -->
+    <header class="dashboard-header">
+        <div class="header-container">
+            <div class="header-brand">
+                <div class="brand-logo">
+                    <i class="fas fa-ship" id="headerLogoIcon"></i>
+                </div>
+                <div class="brand-info">
+                    <h1>ODYSSEY</h1>
+                    <span>Configuración</span>
+                </div>
+            </div>
+
+            <div class="header-user">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <div class="user-details">
+                        <span class="user-greeting">Bienvenido/a</span>
+                        <span class="user-name" id="userName">Administrador</span>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <a href="dashboard.html" class="action-btn" title="Volver al Dashboard">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                    <button class="action-btn logout-btn" id="logoutBtn" title="Cerrar Sesión">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Settings Main Content -->
+    <main class="dashboard-main">
+        <!-- Settings Navigation -->
+        <div class="settings-nav">
+            <button class="settings-tab active" data-tab="appearance">
+                <i class="fas fa-palette"></i>
+                <span>Apariencia</span>
+            </button>
+            <button class="settings-tab" data-tab="typography">
+                <i class="fas fa-font"></i>
+                <span>Tipografía</span>
+            </button>
+            <button class="settings-tab" data-tab="branding">
+                <i class="fas fa-image"></i>
+                <span>Marca</span>
+            </button>
+            <button class="settings-tab" data-tab="layout">
+                <i class="fas fa-th-large"></i>
+                <span>Diseño</span>
+            </button>
+            <button class="settings-tab" data-tab="export">
+                <i class="fas fa-download"></i>
+                <span>Exportar</span>
+            </button>
+        </div>
+
+        <!-- Settings Content -->
+        <div class="settings-content">
+            <!-- Appearance Tab -->
+            <div class="settings-panel active" id="appearance">
+                <div class="panel-header">
+                    <h2>Configuración de Apariencia</h2>
+                    <p>Personaliza los colores y el estilo visual de tu aplicación</p>
+                </div>
+
+                <div class="settings-grid">
+                    <!-- Color Scheme -->
+                    <div class="setting-section">
+                        <h3>Esquema de Colores</h3>
+                        <div class="color-presets">
+                            <div class="preset active" data-preset="odyssey">
+                                <div class="preset-colors">
+                                    <span style="background: #0a1929"></span>
+                                    <span style="background: #4dd0e1"></span>
+                                    <span style="background: #26c6da"></span>
+                                </div>
+                                <span>ODYSSEY Original</span>
+                            </div>
+                            <div class="preset" data-preset="ocean">
+                                <div class="preset-colors">
+                                    <span style="background: #1a237e"></span>
+                                    <span style="background: #00bcd4"></span>
+                                    <span style="background: #4fc3f7"></span>
+                                </div>
+                                <span>Océano</span>
+                            </div>
+                            <div class="preset" data-preset="sunset">
+                                <div class="preset-colors">
+                                    <span style="background: #e65100"></span>
+                                    <span style="background: #ff9800"></span>
+                                    <span style="background: #ffc107"></span>
+                                </div>
+                                <span>Atardecer</span>
+                            </div>
+                            <div class="preset" data-preset="forest">
+                                <div class="preset-colors">
+                                    <span style="background: #1b5e20"></span>
+                                    <span style="background: #4caf50"></span>
+                                    <span style="background: #8bc34a"></span>
+                                </div>
+                                <span>Bosque</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Custom Colors -->
+                    <div class="setting-section">
+                        <h3>Colores Personalizados</h3>
+                        <div class="color-controls">
+                            <div class="color-input-group">
+                                <label>Color Primario Oscuro</label>
+                                <div class="color-input">
+                                    <input type="color" id="primaryDark" value="#0a1929">
+                                    <input type="text" id="primaryDarkHex" value="#0a1929" maxlength="7">
+                                </div>
+                            </div>
+                            <div class="color-input-group">
+                                <label>Color Primario</label>
+                                <div class="color-input">
+                                    <input type="color" id="primaryBlue" value="#1e3a5f">
+                                    <input type="text" id="primaryBlueHex" value="#1e3a5f" maxlength="7">
+                                </div>
+                            </div>
+                            <div class="color-input-group">
+                                <label>Color Cian Principal</label>
+                                <div class="color-input">
+                                    <input type="color" id="primaryCyan" value="#4dd0e1">
+                                    <input type="text" id="primaryCyanHex" value="#4dd0e1" maxlength="7">
+                                </div>
+                            </div>
+                            <div class="color-input-group">
+                                <label>Color Cian Acento</label>
+                                <div class="color-input">
+                                    <input type="color" id="accentCyan" value="#26c6da">
+                                    <input type="text" id="accentCyanHex" value="#26c6da" maxlength="7">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Theme Mode -->
+                    <div class="setting-section">
+                        <h3>Modo de Tema</h3>
+                        <div class="theme-selector">
+                            <div class="theme-option active" data-theme="light">
+                                <div class="theme-preview light-theme">
+                                    <div class="preview-header"></div>
+                                    <div class="preview-content"></div>
+                                </div>
+                                <span>Claro</span>
+                            </div>
+                            <div class="theme-option" data-theme="dark">
+                                <div class="theme-preview dark-theme">
+                                    <div class="preview-header"></div>
+                                    <div class="preview-content"></div>
+                                </div>
+                                <span>Oscuro</span>
+                            </div>
+                            <div class="theme-option" data-theme="auto">
+                                <div class="theme-preview auto-theme">
+                                    <div class="preview-header"></div>
+                                    <div class="preview-content"></div>
+                                </div>
+                                <span>Automático</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Typography Tab -->
+            <div class="settings-panel" id="typography">
+                <div class="panel-header">
+                    <h2>Configuración de Tipografía</h2>
+                    <p>Personaliza las fuentes y el estilo del texto</p>
+                </div>
+
+                <div class="settings-grid">
+                    <!-- Font Family -->
+                    <div class="setting-section">
+                        <h3>Familia de Fuentes</h3>
+                        <div class="font-selector">
+                            <div class="font-option active" data-font="Inter">
+                                <span style="font-family: 'Inter', sans-serif;">Inter</span>
+                                <small>Moderna y legible</small>
+                            </div>
+                            <div class="font-option" data-font="Roboto">
+                                <span style="font-family: 'Roboto', sans-serif;">Roboto</span>
+                                <small>Clásica y versátil</small>
+                            </div>
+                            <div class="font-option" data-font="Poppins">
+                                <span style="font-family: 'Poppins', sans-serif;">Poppins</span>
+                                <small>Geométrica y amigable</small>
+                            </div>
+                            <div class="font-option" data-font="Montserrat">
+                                <span style="font-family: 'Montserrat', sans-serif;">Montserrat</span>
+                                <small>Elegante y profesional</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Font Sizes -->
+                    <div class="setting-section">
+                        <h3>Tamaños de Fuente</h3>
+                        <div class="size-controls">
+                            <div class="size-control">
+                                <label>Títulos Principales</label>
+                                <div class="slider-input">
+                                    <input type="range" id="headingSize" min="24" max="48" value="32">
+                                    <span class="size-value">32px</span>
+                                </div>
+                            </div>
+                            <div class="size-control">
+                                <label>Texto Base</label>
+                                <div class="slider-input">
+                                    <input type="range" id="bodySize" min="12" max="20" value="16">
+                                    <span class="size-value">16px</span>
+                                </div>
+                            </div>
+                            <div class="size-control">
+                                <label>Texto Pequeño</label>
+                                <div class="slider-input">
+                                    <input type="range" id="smallSize" min="10" max="16" value="14">
+                                    <span class="size-value">14px</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Typography Preview -->
+                    <div class="setting-section">
+                        <h3>Vista Previa</h3>
+                        <div class="typography-preview">
+                            <h1 class="preview-h1">ODYSSEY Dashboard</h1>
+                            <h2 class="preview-h2">Bienvenido al Panel de Control</h2>
+                            <p class="preview-body">Este es un ejemplo de texto normal que muestra cómo se verá el contenido con la configuración actual de tipografía.</p>
+                            <small class="preview-small">Texto pequeño para detalles y metadatos</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Branding Tab -->
+            <div class="settings-panel" id="branding">
+                <div class="panel-header">
+                    <h2>Configuración de Marca</h2>
+                    <p>Personaliza el logo y elementos de marca</p>
+                </div>
+
+                <div class="settings-grid">
+                    <!-- Logo Upload -->
+                    <div class="setting-section">
+                        <h3>Logo Principal</h3>
+                        <div class="logo-upload">
+                            <div class="current-logo">
+                                <div class="logo-preview">
+                                    <i class="fas fa-ship" id="currentLogoIcon"></i>
+                                    <img id="currentLogoImg" style="display: none;" alt="Logo actual">
+                                </div>
+                                <div class="logo-info">
+                                    <span>Logo Actual</span>
+                                    <small>Icono por defecto</small>
+                                </div>
+                            </div>
+                            <div class="upload-controls">
+                                <input type="file" id="logoUpload" accept="image/*" style="display: none;">
+                                <button class="btn btn-primary" onclick="document.getElementById('logoUpload').click()">
+                                    <i class="fas fa-upload"></i>
+                                    Subir Logo
+                                </button>
+                                <button class="btn btn-secondary" id="resetLogo">
+                                    <i class="fas fa-undo"></i>
+                                    Restaurar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Icon Selector -->
+                    <div class="setting-section">
+                        <h3>Iconos Alternativos</h3>
+                        <div class="icon-grid">
+                            <div class="icon-option active" data-icon="fa-ship">
+                                <i class="fas fa-ship"></i>
+                            </div>
+                            <div class="icon-option" data-icon="fa-anchor">
+                                <i class="fas fa-anchor"></i>
+                            </div>
+                            <div class="icon-option" data-icon="fa-compass">
+                                <i class="fas fa-compass"></i>
+                            </div>
+                            <div class="icon-option" data-icon="fa-globe">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <div class="icon-option" data-icon="fa-rocket">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <div class="icon-option" data-icon="fa-star">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="icon-option" data-icon="fa-crown">
+                                <i class="fas fa-crown"></i>
+                            </div>
+                            <div class="icon-option" data-icon="fa-gem">
+                                <i class="fas fa-gem"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Brand Colors -->
+                    <div class="setting-section">
+                        <h3>Colores de Marca</h3>
+                        <div class="brand-colors">
+                            <div class="color-input-group">
+                                <label>Color de Logo</label>
+                                <div class="color-input">
+                                    <input type="color" id="logoColor" value="#4dd0e1">
+                                    <input type="text" id="logoColorHex" value="#4dd0e1" maxlength="7">
+                                </div>
+                            </div>
+                            <div class="color-input-group">
+                                <label>Color de Fondo Logo</label>
+                                <div class="color-input">
+                                    <input type="color" id="logoBg" value="#26c6da">
+                                    <input type="text" id="logoBgHex" value="#26c6da" maxlength="7">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Layout Tab -->
+            <div class="settings-panel" id="layout">
+                <div class="panel-header">
+                    <h2>Configuración de Diseño</h2>
+                    <p>Personaliza la disposición y espaciado</p>
+                </div>
+
+                <div class="settings-grid">
+                    <!-- Border Radius -->
+                    <div class="setting-section">
+                        <h3>Bordes Redondeados</h3>
+                        <div class="slider-input">
+                            <input type="range" id="borderRadius" min="0" max="24" value="12">
+                            <span class="size-value">12px</span>
+                        </div>
+                        <div class="border-preview">
+                            <div class="preview-card">Tarjeta de ejemplo</div>
+                        </div>
+                    </div>
+
+                    <!-- Spacing -->
+                    <div class="setting-section">
+                        <h3>Espaciado</h3>
+                        <div class="spacing-controls">
+                            <div class="size-control">
+                                <label>Espaciado Pequeño</label>
+                                <div class="slider-input">
+                                    <input type="range" id="spacingSmall" min="4" max="16" value="8">
+                                    <span class="size-value">8px</span>
+                                </div>
+                            </div>
+                            <div class="size-control">
+                                <label>Espaciado Medio</label>
+                                <div class="slider-input">
+                                    <input type="range" id="spacingMedium" min="12" max="32" value="16">
+                                    <span class="size-value">16px</span>
+                                </div>
+                            </div>
+                            <div class="size-control">
+                                <label>Espaciado Grande</label>
+                                <div class="slider-input">
+                                    <input type="range" id="spacingLarge" min="24" max="64" value="32">
+                                    <span class="size-value">32px</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Animation Speed -->
+                    <div class="setting-section">
+                        <h3>Velocidad de Animaciones</h3>
+                        <div class="animation-controls">
+                            <div class="animation-option active" data-speed="fast">
+                                <span>Rápida</span>
+                                <small>0.2s</small>
+                            </div>
+                            <div class="animation-option" data-speed="normal">
+                                <span>Normal</span>
+                                <small>0.3s</small>
+                            </div>
+                            <div class="animation-option" data-speed="slow">
+                                <span>Lenta</span>
+                                <small>0.5s</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Export Tab -->
+            <div class="settings-panel" id="export">
+                <div class="panel-header">
+                    <h2>Exportar Configuración</h2>
+                    <p>Guarda y comparte tu configuración personalizada</p>
+                </div>
+
+                <div class="settings-grid">
+                    <!-- Export Options -->
+                    <div class="setting-section">
+                        <h3>Opciones de Exportación</h3>
+                        <div class="export-buttons">
+                            <button class="btn btn-primary" id="exportConfig">
+                                <i class="fas fa-download"></i>
+                                Descargar Configuración
+                            </button>
+                            <button class="btn btn-secondary" id="copyConfig">
+                                <i class="fas fa-copy"></i>
+                                Copiar al Portapapeles
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Import Options -->
+                    <div class="setting-section">
+                        <h3>Importar Configuración</h3>
+                        <div class="import-controls">
+                            <input type="file" id="importConfig" accept=".json" style="display: none;">
+                            <button class="btn btn-primary" onclick="document.getElementById('importConfig').click()">
+                                <i class="fas fa-upload"></i>
+                                Cargar Configuración
+                            </button>
+                            <button class="btn btn-danger" id="resetConfig">
+                                <i class="fas fa-refresh"></i>
+                                Restaurar por Defecto
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Live Preview -->
+                    <div class="setting-section">
+                        <h3>Vista Previa en Vivo</h3>
+                        <div class="live-preview">
+                            <div class="preview-window">
+                                <div class="preview-header">
+                                    <div class="preview-logo">
+                                        <i class="fas fa-ship"></i>
+                                    </div>
+                                    <span>ODYSSEY</span>
+                                </div>
+                                <div class="preview-content">
+                                    <div class="preview-card">
+                                        <h4>Tarjeta de Servicio</h4>
+                                        <p>Vista previa del contenido</p>
+                                        <button class="preview-btn">Botón</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Apply/Reset Actions -->
+        <div class="settings-actions">
+            <button class="btn btn-primary" id="applySettings">
+                <i class="fas fa-check"></i>
+                Aplicar Cambios
+            </button>
+            <button class="btn btn-secondary" id="previewSettings">
+                <i class="fas fa-eye"></i>
+                Vista Previa
+            </button>
+            <button class="btn btn-outline" id="resetSettings">
+                <i class="fas fa-undo"></i>
+                Deshacer Cambios
+            </button>
+        </div>
+    </main>
+
+    <!-- Notification Toast -->
+    <div class="settings-toast" id="settingsToast">
+        <i class="fas fa-check-circle"></i>
+        <span>Configuración guardada correctamente</span>
+    </div>
+
+    <script src="settings.js"></script>
+</body>
+</html>
