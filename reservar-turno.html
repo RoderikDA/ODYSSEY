@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ODYSSEY - Reservar Turno</title>
+    <meta name="description" content="Reserva tu turno en ODYSSEY - Sistema de citas online">
+    <meta name="robots" content="index, follow">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="booking.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#4dd0e1">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="ODYSSEY - Reservar Turno">
+    <meta property="og:description" content="Reserva tu turno en ODYSSEY - Sistema de citas online">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://odyssey.com.ar/reservar-turno">
+    <meta property="og:image" content="https://odyssey.com.ar/og-image.jpg">
+</head>
+<body class="booking-body">
+    <!-- Background Animation -->
+    <div class="booking-background">
+        <div class="floating-element" style="top: 10%; left: 10%; animation-delay: 0s;"></div>
+        <div class="floating-element" style="top: 20%; right: 15%; animation-delay: 2s;"></div>
+        <div class="floating-element" style="bottom: 30%; left: 20%; animation-delay: 4s;"></div>
+        <div class="floating-element" style="bottom: 10%; right: 10%; animation-delay: 6s;"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="booking-header">
+        <div class="header-container">
+            <div class="brand">
+                <div class="brand-logo">
+                    <i class="fas fa-ship"></i>
+                </div>
+                <div class="brand-text">
+                    <h1>ODYSSEY</h1>
+                    <span>Sistema de Turnos</span>
+                </div>
+            </div>
+            <div class="header-info">
+                <div class="contact-info">
+                    <i class="fas fa-phone"></i>
+                    <span>+54 11 1234-5678</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="booking-main">
+        <div class="booking-container">
+            <!-- Welcome Section -->
+            <div class="welcome-section">
+                <h2>Reserva tu Turno</h2>
+                <p>Bienvenido al sistema de turnos ODYSSEY. Selecciona el día y horario que mejor te convenga.</p>
+            </div>
+
+            <!-- Booking Form -->
+            <div class="booking-form-container">
+                <form class="booking-form" id="bookingForm">
+                    <!-- Step 1: Personal Information -->
+                    <div class="form-step active" id="step1">
+                        <div class="step-header">
+                            <div class="step-number">1</div>
+                            <div class="step-info">
+                                <h3>Información Personal</h3>
+                                <p>Completa tus datos de contacto</p>
+                            </div>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="clientName">
+                                    <i class="fas fa-user"></i>
+                                    Nombre Completo
+                                </label>
+                                <input type="text" id="clientName" name="clientName" required 
+                                       placeholder="Ingresa tu nombre completo">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="clientEmail">
+                                    <i class="fas fa-envelope"></i>
+                                    Email
+                                </label>
+                                <input type="email" id="clientEmail" name="clientEmail" required 
+                                       placeholder="tu@email.com">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="clientPhone">
+                                    <i class="fas fa-phone"></i>
+                                    Teléfono
+                                </label>
+                                <input type="tel" id="clientPhone" name="clientPhone" required 
+                                       placeholder="+54 11 1234-5678">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="clientDni">
+                                    <i class="fas fa-id-card"></i>
+                                    DNI
+                                </label>
+                                <input type="text" id="clientDni" name="clientDni" 
+                                       placeholder="12.345.678">
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-primary" onclick="nextStep()">
+                                Continuar
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Date Selection -->
+                    <div class="form-step" id="step2">
+                        <div class="step-header">
+                            <div class="step-number">2</div>
+                            <div class="step-info">
+                                <h3>Seleccionar Fecha</h3>
+                                <p>Elige el día que prefieras</p>
+                            </div>
+                        </div>
+
+                        <div class="calendar-selector">
+                            <div class="calendar-header">
+                                <button type="button" class="calendar-nav" id="prevMonthPublic">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <h4 id="currentMonthPublic">Enero 2024</h4>
+                                <button type="button" class="calendar-nav" id="nextMonthPublic">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="calendar-grid" id="publicCalendar">
+                                <!-- Calendar will be generated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" onclick="prevStep()">
+                                <i class="fas fa-arrow-left"></i>
+                                Anterior
+                            </button>
+                            <button type="button" class="btn btn-primary" onclick="nextStep()" disabled id="continueToTime">
+                                Continuar
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Time Selection -->
+                    <div class="form-step" id="step3">
+                        <div class="step-header">
+                            <div class="step-number">3</div>
+                            <div class="step-info">
+                                <h3>Seleccionar Horario</h3>
+                                <p>Elige la hora que mejor te convenga</p>
+                            </div>
+                        </div>
+
+                        <div class="selected-date-info">
+                            <i class="fas fa-calendar-day"></i>
+                            <span>Fecha seleccionada: <strong id="selectedDateDisplay">-</strong></span>
+                        </div>
+
+                        <div class="time-slots-container">
+                            <div class="time-period">
+                                <h5>Horarios de Mañana</h5>
+                                <div class="time-slots" id="morningSlots">
+                                    <!-- Morning time slots will be generated by JavaScript -->
+                                </div>
+                            </div>
+
+                            <div class="time-period">
+                                <h5>Horarios de Tarde</h5>
+                                <div class="time-slots" id="afternoonSlots">
+                                    <!-- Afternoon time slots will be generated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" onclick="prevStep()">
+                                <i class="fas fa-arrow-left"></i>
+                                Anterior
+                            </button>
+                            <button type="button" class="btn btn-primary" onclick="nextStep()" disabled id="continueToConfirm">
+                                Continuar
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Additional Information -->
+                    <div class="form-step" id="step4">
+                        <div class="step-header">
+                            <div class="step-number">4</div>
+                            <div class="step-info">
+                                <h3>Información Adicional</h3>
+                                <p>Cuéntanos el motivo de tu consulta</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="appointmentReason">
+                                <i class="fas fa-clipboard-list"></i>
+                                Motivo de la Consulta
+                            </label>
+                            <select id="appointmentReason" name="appointmentReason" required>
+                                <option value="">Selecciona el motivo</option>
+                                <option value="consulta">Consulta General</option>
+                                <option value="seguimiento">Seguimiento</option>
+                                <option value="revision">Revisión</option>
+                                <option value="urgencia">Urgencia</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="appointmentNotes">
+                                <i class="fas fa-comment"></i>
+                                Observaciones (Opcional)
+                            </label>
+                            <textarea id="appointmentNotes" name="appointmentNotes" rows="4" 
+                                      placeholder="Describe brevemente el motivo de tu consulta o cualquier información adicional que consideres importante..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="acceptTerms" name="acceptTerms" required>
+                                <span class="checkmark"></span>
+                                <span>Acepto los <a href="#" onclick="showTerms()">términos y condiciones</a> y la <a href="#" onclick="showPrivacy()">política de privacidad</a></span>
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="acceptNotifications" name="acceptNotifications" checked>
+                                <span class="checkmark"></span>
+                                <span>Deseo recibir recordatorios por email y SMS</span>
+                            </label>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" onclick="prevStep()">
+                                <i class="fas fa-arrow-left"></i>
+                                Anterior
+                            </button>
+                            <button type="button" class="btn btn-primary" onclick="nextStep()">
+                                Continuar
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 5: Confirmation -->
+                    <div class="form-step" id="step5">
+                        <div class="step-header">
+                            <div class="step-number">5</div>
+                            <div class="step-info">
+                                <h3>Confirmar Turno</h3>
+                                <p>Revisa los datos antes de confirmar</p>
+                            </div>
+                        </div>
+
+                        <div class="confirmation-summary">
+                            <div class="summary-section">
+                                <h5><i class="fas fa-user"></i> Datos Personales</h5>
+                                <div class="summary-content">
+                                    <p><strong>Nombre:</strong> <span id="summaryName">-</span></p>
+                                    <p><strong>Email:</strong> <span id="summaryEmail">-</span></p>
+                                    <p><strong>Teléfono:</strong> <span id="summaryPhone">-</span></p>
+                                </div>
+                            </div>
+
+                            <div class="summary-section">
+                                <h5><i class="fas fa-calendar-alt"></i> Fecha y Hora</h5>
+                                <div class="summary-content">
+                                    <p><strong>Fecha:</strong> <span id="summaryDate">-</span></p>
+                                    <p><strong>Hora:</strong> <span id="summaryTime">-</span></p>
+                                    <p><strong>Duración:</strong> 60 minutos</p>
+                                </div>
+                            </div>
+
+                            <div class="summary-section">
+                                <h5><i class="fas fa-clipboard-list"></i> Detalles</h5>
+                                <div class="summary-content">
+                                    <p><strong>Motivo:</strong> <span id="summaryReason">-</span></p>
+                                    <p><strong>Observaciones:</strong> <span id="summaryNotes">-</span></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" onclick="prevStep()">
+                                <i class="fas fa-arrow-left"></i>
+                                Anterior
+                            </button>
+                            <button type="submit" class="btn btn-success" id="confirmButton">
+                                <i class="fas fa-check"></i>
+                                Confirmar Turno
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Progress Indicator -->
+                <div class="progress-indicator">
+                    <div class="progress-step active" data-step="1">
+                        <div class="step-circle">1</div>
+                        <span>Datos</span>
+                    </div>
+                    <div class="progress-step" data-step="2">
+                        <div class="step-circle">2</div>
+                        <span>Fecha</span>
+                    </div>
+                    <div class="progress-step" data-step="3">
+                        <div class="step-circle">3</div>
+                        <span>Hora</span>
+                    </div>
+                    <div class="progress-step" data-step="4">
+                        <div class="step-circle">4</div>
+                        <span>Detalles</span>
+                    </div>
+                    <div class="progress-step" data-step="5">
+                        <div class="step-circle">5</div>
+                        <span>Confirmar</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content success-modal">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3>¡Turno Confirmado!</h3>
+            <p>Tu turno ha sido reservado exitosamente. Recibirás un email de confirmación con todos los detalles.</p>
+            
+            <div class="appointment-details">
+                <div class="detail-item">
+                    <i class="fas fa-calendar-day"></i>
+                    <span>Fecha: <strong id="confirmedDate">-</strong></span>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Hora: <strong id="confirmedTime">-</strong></span>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-hashtag"></i>
+                    <span>Número de turno: <strong id="appointmentNumber">-</strong></span>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn btn-primary" onclick="closeSuccessModal()">
+                    <i class="fas fa-home"></i>
+                    Ir al Inicio
+                </button>
+                <button class="btn btn-secondary" onclick="newAppointment()">
+                    <i class="fas fa-plus"></i>
+                    Nuevo Turno
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="bookingLoading">
+        <div class="loading-content">
+            <div class="loading-spinner">
+                <i class="fas fa-calendar-check"></i>
+            </div>
+            <p>Procesando tu solicitud...</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="booking-footer">
+        <div class="footer-container">
+            <div class="footer-info">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <i class="fas fa-ship"></i>
+                    </div>
+                    <div>
+                        <h4>ODYSSEY</h4>
+                        <p>Tu plataforma confiable de servicios</p>
+                    </div>
+                </div>
+                
+                <div class="footer-contact">
+                    <h5>Contacto</h5>
+                    <p><i class="fas fa-phone"></i> +54 11 1234-5678</p>
+                    <p><i class="fas fa-envelope"></i> info@odyssey.com.ar</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Buenos Aires, Argentina</p>
+                </div>
+                
+                <div class="footer-hours">
+                    <h5>Horarios de Atención</h5>
+                    <p>Lunes a Viernes: 9:00 - 18:00</p>
+                    <p>Sábados: 9:00 - 13:00</p>
+                    <p>Domingos: Cerrado</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 ODYSSEY. Todos los derechos reservados.</p>
+                <div class="footer-links">
+                    <a href="#" onclick="showTerms()">Términos y Condiciones</a>
+                    <a href="#" onclick="showPrivacy()">Política de Privacidad</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="booking.js"></script>
+</body>
+</html>

@@ -74,7 +74,7 @@ function initUserInterface() {
     const settingsBtn = document.getElementById('settingsBtn');
     if (settingsBtn) {
         settingsBtn.addEventListener('click', function() {
-            showNotification('Configuración próximamente disponible', 'info');
+            window.location.href = 'settings.html';
         });
     }
 }
@@ -159,7 +159,8 @@ function openService(serviceName) {
         'nextcloud': 'https://your-nextcloud-instance.com',
         'chatgpt': 'https://chat.openai.com',
         'calendar': 'https://calendar.google.com',
-        'gmail': 'https://gmail.com'
+        'gmail': 'https://gmail.com',
+        'turnero': 'turnero.html'
     };
     
     // Simulate loading delay
@@ -167,7 +168,11 @@ function openService(serviceName) {
         hideLoadingOverlay();
         
         if (serviceUrls[serviceName]) {
-            window.open(serviceUrls[serviceName], '_blank');
+            if (serviceName === 'turnero') {
+                window.location.href = serviceUrls[serviceName];
+            } else {
+                window.open(serviceUrls[serviceName], '_blank');
+            }
             showNotification(`Abriendo ${getServiceDisplayName(serviceName)}...`, 'success');
         } else {
             showNotification(`Servicio ${serviceName} no configurado`, 'error');
@@ -188,7 +193,8 @@ function getServiceDisplayName(serviceName) {
         'nextcloud': 'Nextcloud',
         'chatgpt': 'ChatGPT',
         'calendar': 'Google Calendar',
-        'gmail': 'Gmail'
+        'gmail': 'Gmail',
+        'turnero': 'Sistema de Turnos'
     };
     return displayNames[serviceName] || serviceName;
 }
