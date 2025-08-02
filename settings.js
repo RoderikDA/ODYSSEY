@@ -37,6 +37,8 @@ let currentSettings = {
     theme: 'light'
 };
 
+
+
 function initSettingsPanel() {
     // Check authentication
     checkAuthentication();
@@ -616,6 +618,8 @@ function resetChanges() {
 // Settings Management
 function saveSettings() {
     localStorage.setItem('odysseySettings', JSON.stringify(currentSettings));
+    applyAllSettings();
+    showToast('Configuración guardada exitosamente', 'success');
 }
 
 function loadSettings() {
@@ -627,6 +631,8 @@ function loadSettings() {
             console.error('Error loading settings:', error);
         }
     }
+    applyAllSettings();
+    updateAllInputs();
 }
 
 function applyAllSettings() {

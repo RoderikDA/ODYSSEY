@@ -1,5 +1,13 @@
 /* ODYSSEY Turnero (Appointment System) Styles */
 
+:root {
+    --success: #4caf50;
+    --error: #f44336;
+    --warning: #ff9800;
+    --border-radius: 12px;
+    --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
 /* Stats Cards */
 .turnero-stats {
     display: grid;
@@ -924,6 +932,48 @@
     margin-top: 2rem;
     padding-top: 1rem;
     border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Toast Notifications */
+.toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 1rem 1.5rem;
+    box-shadow: var(--shadow-hover);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    z-index: 1000;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    max-width: 400px;
+}
+
+.toast.show {
+    transform: translateX(0);
+}
+
+.toast-success {
+    border-left: 4px solid var(--success);
+}
+
+.toast-error {
+    border-left: 4px solid var(--error);
+}
+
+.toast i {
+    font-size: 1.2rem;
+}
+
+.toast-success i {
+    color: var(--success);
+}
+
+.toast-error i {
+    color: var(--error);
 }
 
 /* Responsive Design */
