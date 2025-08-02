@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+
+# Disallow sensitive areas
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.log
+Disallow: /*.sql
+Disallow: /*.conf
+
+# Allow important files
+Allow: /styles.css
+Allow: /script.js
+Allow: /manifest.json
+Allow: /sw.js
+
+# Sitemap location
+Sitemap: https://odyssey.com.ar/sitemap.xml
+
+# Crawl delay (optional)
+Crawl-delay: 1
