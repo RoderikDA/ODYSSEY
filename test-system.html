@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Sistema ODYSSEY</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-button {
+            background: #4dd0e1;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .test-button:hover {
+            background: #26c6da;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        pre {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test del Sistema ODYSSEY</h1>
+    
+    <div class="test-section">
+        <h2>1. Configuración del Sistema</h2>
+        <button class="test-button" onclick="testConfiguration()">Probar Configuración</button>
+        <button class="test-button" onclick="resetConfiguration()">Resetear Configuración</button>
+        <div id="configStatus"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>2. Gestión de Servicios</h2>
+        <button class="test-button" onclick="testServices()">Probar Servicios</button>
+        <button class="test-button" onclick="addTestService()">Agregar Servicio de Prueba</button>
+        <div id="servicesStatus"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>3. Gestión de Horarios</h2>
+        <button class="test-button" onclick="testTimeSlots()">Probar Horarios</button>
+        <button class="test-button" onclick="generateTestSlots()">Generar Horarios de Prueba</button>
+        <div id="slotsStatus"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>4. Gestión de Turnos</h2>
+        <button class="test-button" onclick="testAppointments()">Probar Turnos</button>
+        <button class="test-button" onclick="addTestAppointment()">Agregar Turno de Prueba</button>
+        <div id="appointmentsStatus"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>5. Formulario Externo</h2>
+        <button class="test-button" onclick="testBookingForm()">Probar Formulario</button>
+        <button class="test-button" onclick="openBookingForm()">Abrir Formulario</button>
+        <div id="bookingStatus"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>6. Estado del Sistema</h2>
+        <button class="test-button" onclick="showSystemStatus()">Mostrar Estado</button>
+        <div id="systemStatus"></div>
+    </div>
+
+    <script>
+        function showStatus(elementId, message, type = 'info') {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `<div class="status ${type}">${message}</div>`;
+        }
+
+        function testConfiguration() {
+            try {
+                const settings = localStorage.getItem('odysseySettings');
+                if (settings) {
+                    const parsed = JSON.parse(settings);
+                    showStatus('configStatus', 
+                        `<strong>✅ Configuración encontrada:</strong><br>
+                        <pre>${JSON.stringify(parsed, null, 2)}</pre>`, 'success');
+                } else {
+                    showStatus('configStatus', 
+                        '⚠️ No hay configuración guardada. Se usará la configuración por defecto.', 'info');
+                }
+            } catch (error) {
+                showStatus('configStatus', 
+                    `❌ Error al cargar configuración: ${error.message}`, 'error');
+            }
+        }
+
+        function resetConfiguration() {
+            try {
+                localStorage.removeItem('odysseySettings');
+                localStorage.removeItem('odysseyServices');
+                localStorage.removeItem('odysseyTimeSlots');
+                localStorage.removeItem('odysseyAppointments');
+                localStorage.removeItem('odysseyTurneroSettings');
+                showStatus('configStatus', '✅ Configuración reseteada correctamente', 'success');
+            } catch (error) {
+                showStatus('configStatus', 
+                    `❌ Error al resetear: ${error.message}`, 'error');
+            }
+        }
+
+        function testServices() {
+            try {
+                const services = JSON.parse(localStorage.getItem('odysseyServices') || '[]');
+                if (services.length > 0) {
+                    showStatus('servicesStatus', 
+                        `<strong>✅ ${services.length} servicios encontrados:</strong><br>
+                        <pre>${JSON.stringify(services, null, 2)}</pre>`, 'success');
+                } else {
+                    showStatus('servicesStatus', 
+                        '⚠️ No hay servicios configurados', 'info');
+                }
+            } catch (error) {
+                showStatus('servicesStatus', 
+                    `❌ Error al cargar servicios: ${error.message}`, 'error');
+            }
+        }
+
+        function addTestService() {
+            try {
+                const services = JSON.parse(localStorage.getItem('odysseyServices') || '[]');
+                const newService = {
+                    id: Date.now(),
+                    name: 'Servicio de Prueba',
+                    duration: 60,
+                    color: '#4dd0e1',
+                    active: true
+                };
+                services.push(newService);
+                localStorage.setItem('odysseyServices', JSON.stringify(services));
+                showStatus('servicesStatus', 
+                    `✅ Servicio de prueba agregado: ${newService.name}`, 'success');
+            } catch (error) {
+                showStatus('servicesStatus', 
+                    `❌ Error al agregar servicio: ${error.message}`, 'error');
+            }
+        }
+
+        function testTimeSlots() {
+            try {
+                const slots = JSON.parse(localStorage.getItem('odysseyTimeSlots') || '[]');
+                if (slots.length > 0) {
+                    showStatus('slotsStatus', 
+                        `<strong>✅ ${slots.length} horarios configurados:</strong><br>
+                        <pre>${JSON.stringify(slots, null, 2)}</pre>`, 'success');
+                } else {
+                    showStatus('slotsStatus', 
+                        '⚠️ No hay horarios configurados', 'info');
+                }
+            } catch (error) {
+                showStatus('slotsStatus', 
+                    `❌ Error al cargar horarios: ${error.message}`, 'error');
+            }
+        }
+
+        function generateTestSlots() {
+            try {
+                const slots = [];
+                for (let hour = 9; hour < 18; hour++) {
+                    slots.push({
+                        id: hour,
+                        time: `${hour.toString().padStart(2, '0')}:00`,
+                        available: true,
+                        serviceId: null
+                    });
+                }
+                localStorage.setItem('odysseyTimeSlots', JSON.stringify(slots));
+                showStatus('slotsStatus', 
+                    `✅ ${slots.length} horarios de prueba generados (9:00 - 18:00)`, 'success');
+            } catch (error) {
+                showStatus('slotsStatus', 
+                    `❌ Error al generar horarios: ${error.message}`, 'error');
+            }
+        }
+
+        function testAppointments() {
+            try {
+                const appointments = JSON.parse(localStorage.getItem('odysseyAppointments') || '[]');
+                if (appointments.length > 0) {
+                    showStatus('appointmentsStatus', 
+                        `<strong>✅ ${appointments.length} turnos encontrados:</strong><br>
+                        <pre>${JSON.stringify(appointments, null, 2)}</pre>`, 'success');
+                } else {
+                    showStatus('appointmentsStatus', 
+                        '⚠️ No hay turnos registrados', 'info');
+                }
+            } catch (error) {
+                showStatus('appointmentsStatus', 
+                    `❌ Error al cargar turnos: ${error.message}`, 'error');
+            }
+        }
+
+        function addTestAppointment() {
+            try {
+                const appointments = JSON.parse(localStorage.getItem('odysseyAppointments') || '[]');
+                const newAppointment = {
+                    id: Date.now(),
+                    date: new Date().toISOString().split('T')[0],
+                    time: '14:00',
+                    clientName: 'Cliente de Prueba',
+                    clientPhone: '+54 11 1234-5678',
+                    clientEmail: 'test@example.com',
+                    serviceId: 1,
+                    notes: 'Turno de prueba',
+                    status: 'confirmed',
+                    createdAt: new Date().toISOString()
+                };
+                appointments.push(newAppointment);
+                localStorage.setItem('odysseyAppointments', JSON.stringify(appointments));
+                showStatus('appointmentsStatus', 
+                    `✅ Turno de prueba agregado para ${newAppointment.clientName}`, 'success');
+            } catch (error) {
+                showStatus('appointmentsStatus', 
+                    `❌ Error al agregar turno: ${error.message}`, 'error');
+            }
+        }
+
+        function testBookingForm() {
+            try {
+                // Verificar que el archivo booking.js existe
+                const script = document.createElement('script');
+                script.src = 'booking.js';
+                script.onload = () => {
+                    showStatus('bookingStatus', 
+                        '✅ Formulario de reserva cargado correctamente', 'success');
+                };
+                script.onerror = () => {
+                    showStatus('bookingStatus', 
+                        '❌ Error al cargar booking.js', 'error');
+                };
+                document.head.appendChild(script);
+            } catch (error) {
+                showStatus('bookingStatus', 
+                    `❌ Error al probar formulario: ${error.message}`, 'error');
+            }
+        }
+
+        function openBookingForm() {
+            try {
+                window.open('reservar-turno.html', '_blank');
+                showStatus('bookingStatus', 
+                    '✅ Formulario de reserva abierto en nueva pestaña', 'success');
+            } catch (error) {
+                showStatus('bookingStatus', 
+                    `❌ Error al abrir formulario: ${error.message}`, 'error');
+            }
+        }
+
+        function showSystemStatus() {
+            try {
+                const status = {
+                    configuration: localStorage.getItem('odysseySettings') ? '✅ Configurado' : '❌ No configurado',
+                    services: JSON.parse(localStorage.getItem('odysseyServices') || '[]').length + ' servicios',
+                    timeSlots: JSON.parse(localStorage.getItem('odysseyTimeSlots') || '[]').length + ' horarios',
+                    appointments: JSON.parse(localStorage.getItem('odysseyAppointments') || '[]').length + ' turnos',
+                    turneroSettings: localStorage.getItem('odysseyTurneroSettings') ? '✅ Configurado' : '❌ No configurado'
+                };
+
+                const statusHtml = Object.entries(status)
+                    .map(([key, value]) => `<strong>${key}:</strong> ${value}`)
+                    .join('<br>');
+
+                showStatus('systemStatus', 
+                    `<strong>Estado del Sistema:</strong><br>${statusHtml}`, 'info');
+            } catch (error) {
+                showStatus('systemStatus', 
+                    `❌ Error al obtener estado: ${error.message}`, 'error');
+            }
+        }
+
+        // Auto-test al cargar la página
+        window.addEventListener('load', () => {
+            showSystemStatus();
+        });
+    </script>
+</body>
+</html>
