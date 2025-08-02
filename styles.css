@@ -243,6 +243,20 @@ body {
     transform: translateY(-2px);
 }
 
+.btn-admin {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--light-cyan);
+    border: 2px solid rgba(77, 208, 225, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.btn-admin:hover {
+    background: rgba(77, 208, 225, 0.2);
+    border-color: var(--primary-cyan);
+    color: var(--white);
+    transform: translateY(-2px);
+}
+
 .hero-visual {
     display: flex;
     justify-content: center;

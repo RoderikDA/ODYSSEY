@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ODYSSEY - Panel de Control</title>
+    <meta name="description" content="Panel de control administrativo ODYSSEY - Acceso a servicios en la nube">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#4dd0e1">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png">
+</head>
+<body class="dashboard-body">
+    <!-- Dashboard Header -->
+    <header class="dashboard-header">
+        <div class="header-container">
+            <div class="header-brand">
+                <div class="brand-logo">
+                    <i class="fas fa-ship"></i>
+                </div>
+                <div class="brand-info">
+                    <h1>ODYSSEY</h1>
+                    <span>Panel de Control</span>
+                </div>
+            </div>
+
+            <div class="header-user">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <div class="user-details">
+                        <span class="user-greeting">Bienvenido/a</span>
+                        <span class="user-name" id="userName">Administrador</span>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="action-btn" id="notificationBtn" title="Notificaciones">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <button class="action-btn" id="settingsBtn" title="Configuración">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                    <button class="action-btn logout-btn" id="logoutBtn" title="Cerrar Sesión">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard Main Content -->
+    <main class="dashboard-main">
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+            <div class="welcome-container">
+                <div class="welcome-content">
+                    <div class="welcome-text">
+                        <h2>¡Bienvenido/a de vuelta, <span id="welcomeUserName">Administrador</span>!</h2>
+                        <p>Tu centro de comando ODYSSEY está listo. Navega hacia tus servicios favoritos.</p>
+                        <div class="welcome-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-clock"></i>
+                                <span>Última conexión: <span id="lastLogin">Hoy</span></span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Estado: <span class="status-active">Activo</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="welcome-visual">
+                        <div class="captain-wheel">
+                            <i class="fas fa-dharmachakra"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="quick-actions">
+            <div class="container">
+                <h3>Acceso Rápido</h3>
+                <div class="actions-grid">
+                    <button class="quick-action" onclick="refreshServices()">
+                        <i class="fas fa-sync-alt"></i>
+                        <span>Actualizar</span>
+                    </button>
+                    <button class="quick-action" onclick="showSystemStatus()">
+                        <i class="fas fa-heartbeat"></i>
+                        <span>Estado</span>
+                    </button>
+                    <button class="quick-action" onclick="showLogs()">
+                        <i class="fas fa-list-alt"></i>
+                        <span>Logs</span>
+                    </button>
+                    <button class="quick-action" onclick="showHelp()">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Ayuda</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cloud Services Grid -->
+        <section class="services-section">
+            <div class="container">
+                <div class="section-header">
+                    <h3>Servicios en la Nube</h3>
+                    <p>Accede a todos tus servicios desde un solo lugar</p>
+                </div>
+
+                <div class="services-grid">
+                    <!-- Nextcloud Service -->
+                    <div class="service-card nextcloud-card" data-service="nextcloud">
+                        <div class="service-header">
+                            <div class="service-icon">
+                                <i class="fas fa-cloud"></i>
+                            </div>
+                            <div class="service-status online">
+                                <i class="fas fa-circle"></i>
+                            </div>
+                        </div>
+                        <div class="service-content">
+                            <h4>Nextcloud</h4>
+                            <p>Tu nube personal y archivos sincronizados</p>
+                            <div class="service-stats">
+                                <div class="stat">
+                                    <i class="fas fa-hdd"></i>
+                                    <span>85% usado</span>
+                                </div>
+                                <div class="stat">
+                                    <i class="fas fa-users"></i>
+                                    <span>5 usuarios</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="service-actions">
+                            <button class="service-btn primary" onclick="openService('nextcloud')">
+                                <i class="fas fa-external-link-alt"></i>
+                                Abrir
+                            </button>
+                            <button class="service-btn secondary" onclick="configureService('nextcloud')">
+                                <i class="fas fa-cog"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ChatGPT Service -->
+                    <div class="service-card chatgpt-card" data-service="chatgpt">
+                        <div class="service-header">
+                            <div class="service-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="service-status online">
+                                <i class="fas fa-circle"></i>
+                            </div>
+                        </div>
+                        <div class="service-content">
+                            <h4>ChatGPT</h4>
+                            <p>Tu asistente de inteligencia artificial</p>
+                            <div class="service-stats">
+                                <div class="stat">
+                                    <i class="fas fa-comments"></i>
+                                    <span>24 consultas hoy</span>
+                                </div>
+                                <div class="stat">
+                                    <i class="fas fa-bolt"></i>
+                                    <span>GPT-4</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="service-actions">
+                            <button class="service-btn primary" onclick="openService('chatgpt')">
+                                <i class="fas fa-external-link-alt"></i>
+                                Abrir
+                            </button>
+                            <button class="service-btn secondary" onclick="configureService('chatgpt')">
+                                <i class="fas fa-cog"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Google Calendar Service -->
+                    <div class="service-card calendar-card" data-service="calendar">
+                        <div class="service-header">
+                            <div class="service-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div class="service-status online">
+                                <i class="fas fa-circle"></i>
+                            </div>
+                        </div>
+                        <div class="service-content">
+                            <h4>Google Calendar</h4>
+                            <p>Gestiona tu agenda y eventos</p>
+                            <div class="service-stats">
+                                <div class="stat">
+                                    <i class="fas fa-calendar-day"></i>
+                                    <span>3 eventos hoy</span>
+                                </div>
+                                <div class="stat">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Próximo en 2h</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="service-actions">
+                            <button class="service-btn primary" onclick="openService('calendar')">
+                                <i class="fas fa-external-link-alt"></i>
+                                Abrir
+                            </button>
+                            <button class="service-btn secondary" onclick="configureService('calendar')">
+                                <i class="fas fa-cog"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Gmail Service -->
+                    <div class="service-card gmail-card" data-service="gmail">
+                        <div class="service-header">
+                            <div class="service-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="service-status online">
+                                <i class="fas fa-circle"></i>
+                            </div>
+                        </div>
+                        <div class="service-content">
+                            <h4>Gmail</h4>
+                            <p>Tu correo electrónico personal</p>
+                            <div class="service-stats">
+                                <div class="stat">
+                                    <i class="fas fa-inbox"></i>
+                                    <span>12 no leídos</span>
+                                </div>
+                                <div class="stat">
+                                    <i class="fas fa-paper-plane"></i>
+                                    <span>8 enviados hoy</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="service-actions">
+                            <button class="service-btn primary" onclick="openService('gmail')">
+                                <i class="fas fa-external-link-alt"></i>
+                                Abrir
+                            </button>
+                            <button class="service-btn secondary" onclick="configureService('gmail')">
+                                <i class="fas fa-cog"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Add New Service Card -->
+                    <div class="service-card add-service-card">
+                        <div class="add-service-content">
+                            <div class="add-service-icon">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                            <h4>Agregar Servicio</h4>
+                            <p>Conecta nuevos servicios a tu panel</p>
+                            <button class="service-btn primary" onclick="addNewService()">
+                                <i class="fas fa-plus"></i>
+                                Agregar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recent Activity -->
+        <section class="activity-section">
+            <div class="container">
+                <h3>Actividad Reciente</h3>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-icon nextcloud">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p><strong>Nextcloud:</strong> Archivo "proyecto_odyssey.pdf" sincronizado</p>
+                            <span class="activity-time">Hace 15 minutos</span>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon gmail">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p><strong>Gmail:</strong> Nuevo email de cliente importante</p>
+                            <span class="activity-time">Hace 1 hora</span>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon calendar">
+                            <i class="fas fa-calendar"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p><strong>Calendar:</strong> Recordatorio de reunión en 30 minutos</p>
+                            <span class="activity-time">Hace 2 horas</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="dashboard-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <span>&copy; 2024 ODYSSEY - Panel de Control</span>
+                    <span>v1.0.0</span>
+                </div>
+                <div class="footer-links">
+                    <a href="#" onclick="showHelp()">Ayuda</a>
+                    <a href="#" onclick="showAbout()">Acerca de</a>
+                    <a href="index.html" target="_blank">Sitio Web</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification Panel -->
+    <div class="notification-panel" id="notificationPanel">
+        <div class="notification-header">
+            <h4>Notificaciones</h4>
+            <button class="close-btn" onclick="closeNotifications()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="notification-list">
+            <div class="notification-item unread">
+                <i class="fas fa-info-circle"></i>
+                <div class="notification-content">
+                    <p>Sistema actualizado correctamente</p>
+                    <span>Hace 5 minutos</span>
+                </div>
+            </div>
+            <div class="notification-item unread">
+                <i class="fas fa-exclamation-triangle"></i>
+                <div class="notification-content">
+                    <p>Backup programado completado</p>
+                    <span>Hace 1 hora</span>
+                </div>
+            </div>
+            <div class="notification-item">
+                <i class="fas fa-check-circle"></i>
+                <div class="notification-content">
+                    <p>Todos los servicios funcionando correctamente</p>
+                    <span>Hace 3 horas</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="loading-spinner">
+                <i class="fas fa-ship"></i>
+            </div>
+            <p>Navegando hacia el servicio...</p>
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>
