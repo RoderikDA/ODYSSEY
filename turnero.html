@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ODYSSEY - Sistema de Turnos</title>
+    <meta name="description" content="Sistema de gestión de turnos ODYSSEY - Administra citas y horarios">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="turnero.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#4dd0e1">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png">
+</head>
+<body class="dashboard-body">
+    <!-- Dashboard Header -->
+    <header class="dashboard-header">
+        <div class="header-container">
+            <div class="header-brand">
+                <div class="brand-logo">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <div class="brand-info">
+                    <h1>ODYSSEY</h1>
+                    <span>Sistema de Turnos</span>
+                </div>
+            </div>
+
+            <div class="header-user">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <div class="user-details">
+                        <span class="user-greeting">Bienvenido/a</span>
+                        <span class="user-name" id="userName">Administrador</span>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <a href="dashboard.html" class="action-btn" title="Volver al Dashboard">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                    <button class="action-btn" id="refreshBtn" title="Actualizar">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                    <button class="action-btn logout-btn" id="logoutBtn" title="Cerrar Sesión">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Turnero Main Content -->
+    <main class="dashboard-main">
+        <!-- Quick Stats -->
+        <div class="turnero-stats">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-calendar-day"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="todayAppointments">8</h3>
+                    <p>Turnos Hoy</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="nextAppointment">14:00</h3>
+                    <p>Próximo Turno</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-calendar-week"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="weekAppointments">32</h3>
+                    <p>Esta Semana</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-percentage"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="occupancyRate">85%</h3>
+                    <p>Ocupación</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Turnero Navigation -->
+        <div class="turnero-nav">
+            <button class="turnero-tab active" data-tab="calendar">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Calendario</span>
+            </button>
+            <button class="turnero-tab" data-tab="appointments">
+                <i class="fas fa-list"></i>
+                <span>Turnos</span>
+            </button>
+            <button class="turnero-tab" data-tab="schedule">
+                <i class="fas fa-clock"></i>
+                <span>Horarios</span>
+            </button>
+            <button class="turnero-tab" data-tab="clients">
+                <i class="fas fa-users"></i>
+                <span>Clientes</span>
+            </button>
+            <button class="turnero-tab" data-tab="settings">
+                <i class="fas fa-cog"></i>
+                <span>Configuración</span>
+            </button>
+        </div>
+
+        <!-- Turnero Content -->
+        <div class="turnero-content">
+            <!-- Calendar Tab -->
+            <div class="turnero-panel active" id="calendar">
+                <div class="panel-header">
+                    <h2>Calendario de Turnos</h2>
+                    <div class="panel-actions">
+                        <button class="btn btn-primary" id="addAppointmentBtn">
+                            <i class="fas fa-plus"></i>
+                            Nuevo Turno
+                        </button>
+                        <button class="btn btn-secondary" id="syncCalendarBtn">
+                            <i class="fas fa-sync"></i>
+                            Sincronizar
+                        </button>
+                    </div>
+                </div>
+
+                <div class="calendar-container">
+                    <div class="calendar-header">
+                        <button class="calendar-nav" id="prevMonth">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <h3 id="currentMonth">Enero 2024</h3>
+                        <button class="calendar-nav" id="nextMonth">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="calendar-grid" id="calendarGrid">
+                        <!-- Calendar will be generated by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="day-schedule" id="daySchedule">
+                    <h4>Horarios para <span id="selectedDate">Hoy</span></h4>
+                    <div class="time-slots" id="timeSlots">
+                        <!-- Time slots will be generated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Appointments Tab -->
+            <div class="turnero-panel" id="appointments">
+                <div class="panel-header">
+                    <h2>Gestión de Turnos</h2>
+                    <div class="panel-actions">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchAppointments" placeholder="Buscar turnos...">
+                        </div>
+                        <select id="filterStatus">
+                            <option value="all">Todos</option>
+                            <option value="confirmed">Confirmados</option>
+                            <option value="pending">Pendientes</option>
+                            <option value="cancelled">Cancelados</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="appointments-list" id="appointmentsList">
+                    <!-- Appointments will be loaded by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Schedule Tab -->
+            <div class="turnero-panel" id="schedule">
+                <div class="panel-header">
+                    <h2>Configuración de Horarios</h2>
+                    <p>Define los horarios disponibles para tomar turnos</p>
+                </div>
+
+                <div class="schedule-config">
+                    <div class="days-config">
+                        <h3>Días de Atención</h3>
+                        <div class="days-selector">
+                            <label class="day-checkbox">
+                                <input type="checkbox" value="1" checked>
+                                <span>Lunes</span>
+                            </label>
+                            <label class="day-checkbox">
+                                <input type="checkbox" value="2" checked>
+                                <span>Martes</span>
+                            </label>
+                            <label class="day-checkbox">
+                                <input type="checkbox" value="3" checked>
+                                <span>Miércoles</span>
+                            </label>
+                            <label class="day-checkbox">
+                                <input type="checkbox" value="4" checked>
+                                <span>Jueves</span>
+                            </label>
+                            <label class="day-checkbox">
+                                <input type="checkbox" value="5" checked>
+                                <span>Viernes</span>
+                            </label>
+                            <label class="day-checkbox">
+                                <input type="checkbox" value="6">
+                                <span>Sábado</span>
+                            </label>
+                            <label class="day-checkbox">
+                                <input type="checkbox" value="0">
+                                <span>Domingo</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="time-config">
+                        <h3>Horarios de Atención</h3>
+                        <div class="time-ranges" id="timeRanges">
+                            <div class="time-range">
+                                <label>Horario de Mañana</label>
+                                <div class="time-inputs">
+                                    <input type="time" id="morningStart" value="09:00">
+                                    <span>a</span>
+                                    <input type="time" id="morningEnd" value="12:00">
+                                </div>
+                            </div>
+                            <div class="time-range">
+                                <label>Horario de Tarde</label>
+                                <div class="time-inputs">
+                                    <input type="time" id="afternoonStart" value="14:00">
+                                    <span>a</span>
+                                    <input type="time" id="afternoonEnd" value="18:00">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="slot-config">
+                            <label>Duración por Turno</label>
+                            <select id="slotDuration">
+                                <option value="30">30 minutos</option>
+                                <option value="60" selected>60 minutos</option>
+                                <option value="90">90 minutos</option>
+                                <option value="120">120 minutos</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="schedule-actions">
+                        <button class="btn btn-primary" id="saveSchedule">
+                            <i class="fas fa-save"></i>
+                            Guardar Configuración
+                        </button>
+                        <button class="btn btn-secondary" id="previewSchedule">
+                            <i class="fas fa-eye"></i>
+                            Vista Previa
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Clients Tab -->
+            <div class="turnero-panel" id="clients">
+                <div class="panel-header">
+                    <h2>Base de Clientes</h2>
+                    <div class="panel-actions">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchClients" placeholder="Buscar clientes...">
+                        </div>
+                        <button class="btn btn-primary" id="exportClients">
+                            <i class="fas fa-download"></i>
+                            Exportar
+                        </button>
+                    </div>
+                </div>
+
+                <div class="clients-list" id="clientsList">
+                    <!-- Clients will be loaded by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Settings Tab -->
+            <div class="turnero-panel" id="settings">
+                <div class="panel-header">
+                    <h2>Configuración del Sistema</h2>
+                    <p>Personaliza el comportamiento del sistema de turnos</p>
+                </div>
+
+                <div class="settings-sections">
+                    <div class="setting-section">
+                        <h3>Google Calendar</h3>
+                        <div class="calendar-integration">
+                            <div class="integration-status" id="calendarStatus">
+                                <i class="fas fa-circle offline"></i>
+                                <span>Desconectado</span>
+                            </div>
+                            <button class="btn btn-primary" id="connectCalendar">
+                                <i class="fab fa-google"></i>
+                                Conectar Google Calendar
+                            </button>
+                            <p class="help-text">
+                                Conecta tu Google Calendar para sincronizar automáticamente los turnos
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="setting-section">
+                        <h3>Notificaciones</h3>
+                        <div class="notification-settings">
+                            <label class="setting-toggle">
+                                <input type="checkbox" id="emailNotifications" checked>
+                                <span class="toggle-slider"></span>
+                                <span>Notificaciones por Email</span>
+                            </label>
+                            <label class="setting-toggle">
+                                <input type="checkbox" id="smsNotifications">
+                                <span class="toggle-slider"></span>
+                                <span>Notificaciones por SMS</span>
+                            </label>
+                            <label class="setting-toggle">
+                                <input type="checkbox" id="reminderNotifications" checked>
+                                <span class="toggle-slider"></span>
+                                <span>Recordatorios Automáticos</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="setting-section">
+                        <h3>Formulario Público</h3>
+                        <div class="public-form-settings">
+                            <div class="form-url">
+                                <label>URL del Formulario</label>
+                                <div class="url-display">
+                                    <input type="text" id="publicFormUrl" value="https://odyssey.com.ar/reservar-turno" readonly>
+                                    <button class="btn btn-secondary" id="copyUrl">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-customization">
+                                <label>Mensaje de Bienvenida</label>
+                                <textarea id="welcomeMessage" rows="3" placeholder="Mensaje que verán los clientes al solicitar un turno">Bienvenido al sistema de turnos ODYSSEY. Selecciona el día y horario que mejor te convenga.</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-actions">
+                        <button class="btn btn-primary" id="saveSettings">
+                            <i class="fas fa-save"></i>
+                            Guardar Configuración
+                        </button>
+                        <button class="btn btn-secondary" id="testSettings">
+                            <i class="fas fa-vial"></i>
+                            Probar Configuración
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add Appointment Modal -->
+    <div class="modal" id="appointmentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Nuevo Turno</h3>
+                <button class="modal-close" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form class="appointment-form" id="appointmentForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Fecha</label>
+                        <input type="date" id="appointmentDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Hora</label>
+                        <select id="appointmentTime" required>
+                            <option value="">Seleccionar hora</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input type="text" id="clientName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono</label>
+                        <input type="tel" id="clientPhone" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="clientEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Observaciones</label>
+                    <textarea id="appointmentNotes" rows="3" placeholder="Información adicional..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelAppointment">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i>
+                        Guardar Turno
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="loading-spinner">
+                <i class="fas fa-calendar-check"></i>
+            </div>
+            <p>Sincronizando con Google Calendar...</p>
+        </div>
+    </div>
+
+    <script src="turnero.js"></script>
+</body>
+</html>

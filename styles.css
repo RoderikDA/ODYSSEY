@@ -25,6 +25,26 @@
     box-sizing: border-box;
 }
 
+
+/* Logo Styling */
+.nav-icon-img,
+.hero-logo-img,
+.footer-logo-img {
+    height: 40px;
+    width: auto;
+}
+
+.hero-logo-img {
+    height: 80px;
+}
+
+.footer-logo-img {
+    height: 30px;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+
 html {
     scroll-behavior: smooth;
 }
@@ -242,6 +262,21 @@ body {
     color: var(--white);
     transform: translateY(-2px);
 }
+
+.btn-admin {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--light-cyan);
+    border: 2px solid rgba(77, 208, 225, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.btn-admin:hover {
+    background: rgba(77, 208, 225, 0.2);
+    border-color: var(--primary-cyan);
+    color: var(--white);
+    transform: translateY(-2px);
+}
+
 
 .hero-visual {
     display: flex;
@@ -833,4 +868,5 @@ body {
 .loading.loaded {
     opacity: 1;
     transform: translateY(0);
+
 }
