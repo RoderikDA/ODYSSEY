@@ -25,6 +25,7 @@
     box-sizing: border-box;
 }
 
+
 /* Logo Styling */
 .nav-icon-img,
 .hero-logo-img,
@@ -42,6 +43,7 @@
     margin-right: 8px;
     vertical-align: middle;
 }
+
 
 html {
     scroll-behavior: smooth;
@@ -274,6 +276,7 @@ body {
     color: var(--white);
     transform: translateY(-2px);
 }
+
 
 .hero-visual {
     display: flex;
@@ -865,4 +868,5 @@ body {
 .loading.loaded {
     opacity: 1;
     transform: translateY(0);
+
 }
